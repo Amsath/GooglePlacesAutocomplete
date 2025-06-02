@@ -1,5 +1,5 @@
 import React from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE  } from 'react-native-maps';
 import { useSelector } from 'react-redux';
 import { StyleSheet } from 'react-native';
 
@@ -12,11 +12,12 @@ const MapViewContainer = () => {
     <MapView
       style={styles.map}
       zoomEnabled={true}
+      provider={PROVIDER_GOOGLE}
       region={{
         latitude: selectedPlace.geometry.location.lat,
         longitude: selectedPlace.geometry.location.lng,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitudeDelta: 0.9122,
+        longitudeDelta: 0.9121,
       }}
     >
       <Marker
