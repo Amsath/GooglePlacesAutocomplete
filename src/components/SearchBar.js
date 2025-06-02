@@ -19,11 +19,12 @@ const SearchBarContainer = () => {
 
   // Clear input search on cancel
   const clearSearch = () => {
-    setQuery('')
+    setQuery('');
   };
 
   // Handle place selection
   const handlePlaceSelect = (place) => {
+    setQuery(place.description);
     dispatch(addToHistory(place));
     dispatch(selectPlace(place.place_id));
   };
@@ -38,6 +39,7 @@ const SearchBarContainer = () => {
         placeholder="Search for a place..."
         onChange={handleSearch}
         onCancel={clearSearch}
+        onSubmit={handleSearch}
         showCancelButton={false}
         cancelText="Cancel"
         style={styles.searchBar}
@@ -48,44 +50,26 @@ const SearchBarContainer = () => {
         {loading ? (
           <Text style={styles.loadingText}>Loading...</Text>
         ) : (
-          <FlatList
-            data={predictions}
-            keyExtractor={(item) => item.place_id}
-            renderItem={({ item }) => (
-              <List.Item style={styles.listItem}
-                onPress={() => handlePlaceSelect(item)} // Handle place selection
-              >
-                <View style={styles.listItemContent}>
-                  <Icon name="environment" color="black" style={styles.icon} />
-                  <Text style={styles.placeName}>{item.description}</Text>
-                </View>
-              </List.Item>
-            )}
-          />
+          <>
+            {predictions.length > 0 &&
+              <FlatList
+                data={predictions}
+                keyExtractor={(item) => item.place_id}
+                renderItem={({ item }) => (
+                  <List.Item style={styles.listItem}
+                    onPress={() => handlePlaceSelect(item)} // Handle place selection
+                  >
+                    <View style={styles.listItemContent}>
+                      <Icon name="environment" color="black" style={styles.icon} />
+                      <Text style={styles.placeName}>{item.description}</Text>
+                    </View>
+                  </List.Item>
+                )}
+              />}
+          </>
         )}
       </View>
     </>
-    // <List>
-    //   <InputItem
-    //     value={query}
-    //     onChange={(text) => {
-    //       setQuery(text);
-    //       handleSearch(text);
-    //     }}
-    //     placeholder="Search for places"
-    //   />
-    //   {predictions?.map((item) => (
-    //     <List.Item
-    //       key={item.place_id}
-    //       onPress={() => {
-    //         onPlaceSelect(item);
-    //         setQuery(item.description);
-    //       }}
-    //     >
-    //       {item.description}
-    //     </List.Item>
-    //   ))}
-    // </List>
   );
 };
 
@@ -100,7 +84,6 @@ const styles = StyleSheet.create({
     flex: 0,
     backgroundColor: '#fff',
     borderRadius: 8,
-    paddingVertical: 5,
     marginTop: 15
   },
   listItem: {

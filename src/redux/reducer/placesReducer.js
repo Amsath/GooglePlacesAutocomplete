@@ -26,7 +26,7 @@ const placesReducer = (state = initialState, action) => {
                 history: [action.payload, ...state.history].slice(0, 10),
             };
         case SELECT_PLACE:
-            return { ...state, loading: true };
+            return { ...state, loading: true, predictions: [] };
         case SELECT_PLACE_SUCCESS:
             return { ...state, selectedPlace: action.payload, history: [action.payload, ...state.history].slice(0, 10), loading: false };
         default:

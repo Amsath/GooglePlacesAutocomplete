@@ -1,6 +1,5 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { View } from '@ant-design/react-native';
 import { useSelector } from 'react-redux';
 import { StyleSheet } from 'react-native';
 
@@ -12,6 +11,7 @@ const MapViewContainer = () => {
   return (
     <MapView
       style={styles.map}
+      zoomEnabled={true}
       region={{
         latitude: selectedPlace.geometry.location.lat,
         longitude: selectedPlace.geometry.location.lng,
@@ -34,7 +34,7 @@ const MapViewContainer = () => {
 
 const styles = StyleSheet.create({
   map: {
-    height: 300, // Height of the map
+    height: 500, // Height of the map
     marginTop: 20,
     borderRadius: 8,
   },

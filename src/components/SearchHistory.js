@@ -1,20 +1,22 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 
 const SearchHistory = () => {
-  const {history } = useSelector((state) => state.places);
+  const { history } = useSelector((state) => state.places);
   return (
     <>
       {/* Display search history */}
       {history.length > 0 && (
         <View style={styles.historyContainer}>
           <Text style={styles.historyTitle}>Recent Searches:</Text>
-          {history.map((item, index) => (
-            <Text key={index} style={styles.historyItem}>
-              {item.description}
-            </Text>
-          ))}
+          <ScrollView style={styles.scrollContainer}>
+            {history.map((item, index) => (
+              <Text key={index} style={styles.historyItem}>
+                {item.description}
+              </Text>
+            ))}
+          </ScrollView>
         </View>
       )}
     </>
@@ -38,6 +40,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
     marginBottom: 5,
+  },
+  scrollContainer: {
+    maxHeight: 160,
   },
 });
 
