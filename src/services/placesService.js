@@ -34,6 +34,7 @@ export const getPlacesAutocomplete = async (query) => {
       `${BASE_URL}/autocomplete/json?input=${query}&key=${API_KEY}`
     );
 
+    // Return mock data for development or fallback scenario
     if (response.data.status === 'REQUEST_DENIED') {
       console.warn('Google Places API request denied. Using mock data.');
       return { predictions: PREDICTIONS_DATA };
@@ -41,9 +42,7 @@ export const getPlacesAutocomplete = async (query) => {
 
     return response.data;
   } catch (error) {
-    console.error('Get places collections failed', error);
-    // Return mock data for development or fallback scenario
-    return { predictions: PREDICTIONS_DATA };
+    throw error;
   }
 };
 
@@ -59,17 +58,16 @@ export const getPlaceDetails = async (placeId) => {
       `${BASE_URL}/details/json?place_id=${placeId}&key=${API_KEY}`
     );
 
-    // Handle API-level error returned in response
+    // Handle API-level error returned in response 
     if (response.data.status === 'REQUEST_DENIED') {
       console.warn('Google Places Details API request denied. Using mock data.');
+      // Return mock data for development or fallback scenario
       return PLACE_DETAILS;
     }
 
     return response.data.result;
   } catch (error) {
-    console.error('Get selected place details failed', error);
-    // Return mock data for development or fallback scenario
-    return PLACE_DETAILS;
+    throw error;
   }
 };
 

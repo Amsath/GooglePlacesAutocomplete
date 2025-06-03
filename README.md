@@ -31,13 +31,16 @@ This React Native application demonstrates how to use the **Google Places API (v
 
 If the Google API fails (e.g., rate limit, network error, invalid key), the app automatically switches to **mock predictions** to continue providing basic UX without crashing.
 
-This fallback is implemented in the Epic:
+This fallback is implemented in the service:
 
 ```js
-catchError(() => of(fetchPlacesSuccess(mockData)))
+if (response.data.status === 'REQUEST_DENIED') {
+    console.warn('Google Places API request denied. Using mock data.');
+    return { predictions: PREDICTIONS_DATA };
+}
 ```
 
-You can find `mockData` defined in the service file or hardcoded in the epic.
+You can find `mockData` defined in the service file.
 
 ---
 
