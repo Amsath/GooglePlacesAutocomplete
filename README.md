@@ -86,9 +86,6 @@ src/
 ### 🕓 Search History
 ![Search History](assets/screenshots/search-history.png)
 
-> Place your screenshot images in `assets/screenshots/` folder.
-
----
 ---
 
 ## 🚀 How to Run
