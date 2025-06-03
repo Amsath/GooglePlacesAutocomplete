@@ -73,7 +73,22 @@ src/
 ├── utils/             
 
 ```
+---
 
+## 🖼️ Screenshots
+
+### 🔍 Search with Autocomplete
+![Search Autocomplete](assets/screenshots/search-autocomplete.png)
+
+### 🗺️ Place Shown on Map
+![MapView](assets/screenshots/place-mapview.png)
+
+### 🕓 Search History
+![Search History](assets/screenshots/search-history.png)
+
+> Place your screenshot images in `assets/screenshots/` folder.
+
+---
 ---
 
 ## 🚀 How to Run
