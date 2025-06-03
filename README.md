@@ -1,8 +1,82 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Google Places Autocomplete - React Native App
 
-# Getting Started
+This React Native application demonstrates how to use the **Google Places API (v1)** to implement a simple single-page app for place autocomplete and mapping, using **Redux**, **Redux-Observable**, and **Ant Design** components.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
+
+## ✅ Features
+
+- Google Places Autocomplete using the new `places.googleapis.com/v1/places:autocomplete` API
+- Fetches full place details (lat/lng) on selection using `places.googleapis.com/v1/places/{place_id}`
+- Displays selected location on a map with `react-native-maps`
+- Autocomplete search results are managed via Redux and Redux-Observable
+- Recent search history is stored in Redux and displayed below the map
+- Uses mock data as a fallback if API fails
+- Modern, scalable folder structure using best practices
+- Ant Design components for clean and simple UI
+
+---
+
+## 📦 Libraries Used
+
+- `react-native-maps` - display the map and markers
+- `redux`, `react-redux` - state management
+- `redux-observable`, `rxjs` - handle async side effects
+- `@ant-design/react-native` - UI components
+- `axios` - API calls
+
+---
+
+## 🛠 Fallback on API Failure
+
+If the Google API fails (e.g., rate limit, network error, invalid key), the app automatically switches to **mock predictions** to continue providing basic UX without crashing.
+
+This fallback is implemented in the Epic:
+
+```js
+catchError(() => of(fetchPlacesSuccess(mockData)))
+```
+
+You can find `mockData` defined in the service file or hardcoded in the epic.
+
+---
+
+## 🔐 API Key Security
+
+- The app uses API keys restricted by **Android package name** and **SHA-1 fingerprint**
+- The key is injected in `AndroidManifest.xml` for `react-native-maps`:
+  ```xml
+  <meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="YOUR_GOOGLE_MAPS_API_KEY" />
+  ```
+
+---
+
+## 📁 Folder Structure
+
+```
+src/
+├── api/                # Google Places API wrapper
+├── components/         # UI components
+├── redux/              # Actions, reducers, epics
+│   ├── actions/
+│   ├── reducers/
+│   ├── epics/
+│   └── store.js
+├── screens/            # HomeScreen
+├── services/           # placesService.js
+├── hocs/               # High-order components
+├── utils/             
+
+```
+
+---
+
+## 🚀 How to Run
+
+```bash
+npm install
 
 ## Step 1: Start Metro
 
@@ -17,7 +91,6 @@ npm start
 # OR using Yarn
 yarn start
 ```
-
 ## Step 2: Build and run your app
 
 With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
@@ -31,7 +104,6 @@ npm run android
 # OR using Yarn
 yarn android
 ```
-
 ### iOS
 
 For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
@@ -62,36 +134,8 @@ If everything is set up correctly, you should see your new app running in the An
 
 This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+---
 
-Now that you have successfully run the app, let's make changes!
+## 👨‍💻 Author
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Built with ❤️ using React Native, RxJS, and Google Maps API
